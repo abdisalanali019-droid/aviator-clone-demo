@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Zeco Crash Game</title>
+</head>
+
+<body style="background:black; color:white; text-align:center;">
+
+<h1 id="multi">1.00x</h1>
+
+<button onclick="startGame()">BET</button>
+<button onclick="cashOut()">CASH OUT</button>
+
+<script>
+let multiplier = 1;
+let playing = false;
+let crashPoint = 0;
+
+function startGame() {
+  multiplier = 1;
+  playing = true;
+  crashPoint = (Math.random() * 4 + 1);
+
+  let interval = setInterval(() => {
+    if (!playing) {
+      clearInterval(interval);
+      return;
+    }
+
+    multiplier += 0.05;
+    document.getElementById("multi").innerText = multiplier.toFixed(2) + "x";
+
+    if (multiplier >= crashPoint) {
+      document.getElementById("multi").innerText = "CRASH 💥";
+      playing = false;
+      clearInterval(interval);
+    }
+
+  }, 100);
+}
+
+function cashOut() {
+  if (playing) {
+    alert("You won at " + multiplier.toFixed(2) + "x");
+    playing = false;
+  }
+}
+</script>
+
+</body>
+</html>
